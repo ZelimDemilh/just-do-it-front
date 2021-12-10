@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const registry = createSlice({
+const registrySlice = createSlice({
     name: "registry",
     initialState:{
         signingUp: false,
@@ -12,8 +12,8 @@ const registry = createSlice({
     }
 })
 
-export const {} = registry.actions
+export const {} = registrySlice.actions
 
-export default registry.reducer
+export default registrySlice.reducer
 
 
