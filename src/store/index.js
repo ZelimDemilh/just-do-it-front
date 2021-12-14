@@ -1,4 +1,4 @@
-import {applyMiddleware, configureStore} from "@reduxjs/toolkit";
+import {configureStore} from "@reduxjs/toolkit";
 import registry from "./registrySlice"
 import signIn from "./signInSlice"
 import categories from "./categoriesSlice"
