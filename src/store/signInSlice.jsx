@@ -39,6 +39,7 @@ const signInSlice = createSlice({
   extraReducers: {
     [login.pending]: (state) => {
       state.pending = true
+      state.error = null
     },
     [login.fulfilled]: (state, action) => {
       state.pending = false
