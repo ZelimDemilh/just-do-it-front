@@ -1,4 +1,3 @@
-import Header from "./components/Header";
 import React from "react";
 import { Route, Routes } from "react-router-dom"
 import HomePage from "./components/pages/Homepage";
@@ -9,6 +8,7 @@ import Footer from "./components/Footer";
 import Tasks from "./components/pages/Tasks";
 import AddTask from "./components/pages/addTask";
 import ErrorPage from "./components/pages/ErrorPage";
+import Header from "./components/Header";
 
 function App() {
   return (
