@@ -21,6 +21,7 @@ const Geolacation = () => {
     }
 
     return (
+
         <YMaps>
             <div>
                 <Map defaultState={{ center: position , zoom: 14 }} />
