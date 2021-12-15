@@ -41,7 +41,7 @@ const Registry = () => {
       })
     )
 
-    //  event.target.reset()
+    // event.target.reset()
   }
 
   return (
@@ -56,7 +56,7 @@ const Registry = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "red" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -159,6 +159,7 @@ const Registry = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              color="error"
             >
               Зарегистрироваться
             </Button>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import {
@@ -15,13 +15,18 @@ import {
 import { useDispatch } from "react-redux"
 import { login } from "../../store/signInSlice"
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 const theme = createTheme()
 
 const SingIn = () => {
-  const error = useSelector((state) => state.signIn.error)
+  const { error, token } = useSelector((state) => state.signIn)
 
   const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
+  token && navigate("/")
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -46,7 +51,7 @@ const SingIn = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "red" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -81,6 +86,7 @@ const SingIn = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              color="error"
             >
               Войти
             </Button>

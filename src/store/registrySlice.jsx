@@ -44,6 +44,7 @@ const registrySlice = createSlice({
     },
     [registration.rejected]: (state, action) => {
       state.pending = false
+      state.resMessage = null
       state.error = action.payload
     },
   },
