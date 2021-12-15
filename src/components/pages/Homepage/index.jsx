@@ -4,9 +4,12 @@ import cl from "./HomePage.module.css"
 
 const HomePage = () => {
     return (
-            <div className="container d-flex ">
+            <div className="container">
                 <div className="w-100 d-flex align-items-center justify-content-center justify-content-md-between py-3 mb-4">
                     <img src={img} alt="" className={`${cl.img}`}/>
+                </div>
+                <div className="w-100 d-flex align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+
                 </div>
             </div>
     );
