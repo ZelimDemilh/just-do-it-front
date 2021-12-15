@@ -1,31 +1,47 @@
-import * as React from "react"
-import Avatar from "@mui/material/Avatar"
-import Button from "@mui/material/Button"
-import CssBaseline from "@mui/material/CssBaseline"
-import TextField from "@mui/material/TextField"
-import Link from "@mui/material/Link"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
+import React from "react"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
-import Typography from "@mui/material/Typography"
-import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { useDispatch, useSelector } from "react-redux"
+import { registration } from "../../store/registrySlice"
+import {
+  Button,
+  Typography,
+  Container,
+  CssBaseline,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Avatar,
+} from "@mui/material"
 
 const theme = createTheme()
 
 const Registry = () => {
-  const handleSubmit = (event) => {
+  const { error, resMessage } = useSelector((state) => state.registry)
+
+  const dispatch = useDispatch()
+
+  function handleSubmit(event) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    // eslint-disable-next-line no-console
-    console.log({
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      login: data.get("login"),
-      password: data.get("password"),
-      phone: data.get("phone"),
-    })
+    dispatch(
+      registration({
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        email: data.get("email"),
+        login: data.get("login"),
+        password: data.get("password"),
+        phone: data.get("phone"),
+        isMaster: data.get("role"),
+      })
+    )
+
+    //  event.target.reset()
   }
 
   return (
@@ -46,74 +62,96 @@ const Registry = () => {
           <Typography component="h1" variant="h5">
             Регистрация
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+          <Typography component="h1" variant="h6" color="green">
+            {resMessage}
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }} validate>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  variant="standard"
                   required
                   fullWidth
+                  name="firstName"
                   id="firstName"
                   label="Имя"
                   autoFocus
+                  autoComplete="given-name"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  variant="standard"
                   required
                   fullWidth
+                  name="lastName"
                   id="lastName"
                   label="Фамилия"
-                  name="lastName"
                   autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  variant="standard"
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
                   name="email"
+                  id="email"
+                  label="Email адрес"
+                  type="email"
                   autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  name="login"
-                  label="Логин"
-                  id="login"
-                  autoComplete="new-login"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Пароль"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  variant="standard"
                   required
                   fullWidth
+                  name="login"
+                  id="login"
+                  label="Имя пользователя"
+                  autoComplete="new-login"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="standard"
+                  required
+                  fullWidth
+                  name="password"
+                  id="password"
+                  label="Пароль"
+                  type="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="standard"
+                  required
+                  fullWidth
+                  name="phone"
                   id="phone"
                   label="Телефон"
-                  name="phone"
+                  type="tel"
                   autoComplete="phone"
                 />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel id="role-select-label">Выберите роль</InputLabel>
+                  <Select
+                    variant="standard"
+                    required
+                    name="role"
+                    id="role"
+                    label="role"
+                    labelId="role-select-label"
+                  >
+                    <MenuItem value={true}>Заказчик</MenuItem>
+                    <MenuItem value={false}>Исполнитель</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
             </Grid>
             <Button
@@ -124,9 +162,14 @@ const Registry = () => {
             >
               Зарегистрироваться
             </Button>
+            <Grid item>
+              <Typography variant="body2" display="block" color="red">
+                {error}
+              </Typography>
+            </Grid>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/signIn" variant="body2">
                   Уже есть аккаунт? Войти
                 </Link>
               </Grid>
