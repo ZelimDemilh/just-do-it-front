@@ -1,7 +1,7 @@
 import React from 'react';
 
-const HomePage = () => {
 
+const CardTask = ({task}) => {
     return (
         <div>
 
@@ -9,4 +9,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default CardTask;

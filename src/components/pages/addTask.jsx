@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Registry = () => {
+const AddTask = () => {
     return (
         <div>
-            Registry
+            
         </div>
     );
 };
 
-export default Registry;
+export default AddTask;

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Registry = () => {
+const Footer = () => {
     return (
         <div>
-            Registry
+            
         </div>
     );
 };
 
-export default Registry;
+export default Footer;
