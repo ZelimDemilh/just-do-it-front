@@ -5,6 +5,8 @@ import HomePage from "./components/pages/HomePage";
 import Registry from "./components/pages/Registry";
 import SingIn from "./components/pages/SingIn";
 import Profile from "./components/pages/Profile";
+import AllTasks from './components/pages/allTasks.jsx'
+import TasksCategories from './components/pages/TasksCategories';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
             <Route path="/registry" element={<Registry/>}/>
             <Route path="/signIn" element={<SingIn/>}/>
             <Route path="/profile" element={<Profile/>}/>
+            <Route path="/tasks/:id" element={<TasksCategories/>}/>
+            <Route path="/tasks/" element={<AllTasks/>}/>
         </Routes>
     </div>
   );
