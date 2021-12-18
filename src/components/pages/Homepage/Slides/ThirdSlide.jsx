@@ -4,10 +4,10 @@ import cl from "../HomePage.module.css";
 
 const ThirdSlide = () => {
     return (
-        <div className={`${cl.backImg3}`}>
-            <div className="w-100 d-flex  justify-content-around py-3">
-                <div className="w-25 h-50 bg-white bg-opacity-50">
-                    <h4>Что может заказчик?</h4>
+        <div className={`${cl.backImg3} w-100 d-flex py-3 align-items-center`}>
+            <div className="w-100 d-flex justify-content-sm-evenly py-3">
+                <div className={`w-25 h-50 p-2 bg-opacity-50 ${cl.orange}`}>
+                    <h4 className="text-center p-3">Что может заказчик?</h4>
                     <ul>
                         <li>Приостановить оплату</li>
                         <li>Расторгнуть договор до окончания работ</li>
@@ -17,8 +17,8 @@ const ThirdSlide = () => {
                         <li>У заказчика есть и еще одно право, возникающее при нарушении подрядчиком сроков выполнения работ</li>
                     </ul>
                 </div>
-                <div className="w-25 h-50 bg-white bg-opacity-50">
-                    <h4>Что может заказчик?</h4>
+                <div className={`w-25 h-25 p-2 bg-opacity-50 ${cl.red}`}>
+                    <h4 className="text-center p-3">Что может заказчик?</h4>
                     <ul>
                         <li>Приостановить оплату</li>
                         <li>Расторгнуть договор до окончания работ</li>

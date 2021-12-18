@@ -27,3 +27,14 @@ h4{
 ul{
     list-style-type: decimal;
 }
+li{
+    color: white;
+    font-size: 14px;
+}
+.orange{
+    background: rgba(255, 165, 0, 0.8);
+
+}
+.red{
+    background: rgba(255, 0, 0, 0.7);
+}
