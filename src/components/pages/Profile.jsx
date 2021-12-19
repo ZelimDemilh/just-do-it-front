@@ -4,6 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { profile } from "../../store/signInSlice";
 
 const Profile = () => {
+
   const dispatch = useDispatch();
 
   const userDate = useSelector((state) => state.signIn.userDate);
@@ -11,13 +12,14 @@ const Profile = () => {
   useEffect(() => {
     dispatch(profile());
   }, [dispatch]);
+
   return (
     <div className="card mb-3 container w-50 border-0 ">
       <div className="row g-0 d-flex">
         <div class="col-md-4 d-flex justify-content-center">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/1200px-User_icon-cp.svg.png"
-            className="img-fluid rounded-start   h-50 "
+            className="img-fluid rounded-start h-50"
             alt="..."
           />
         </div>
@@ -56,12 +58,8 @@ const Profile = () => {
               </thead>
             </table>
           </div>
-
-    return (
-        <div>
-            profile
-        </div>
       </div>
+    </div>
     </div>
   );
 };
