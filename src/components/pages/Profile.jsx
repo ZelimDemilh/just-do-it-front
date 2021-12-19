@@ -56,6 +56,10 @@ const Profile = () => {
               </thead>
             </table>
           </div>
+
+    return (
+        <div>
+            profile
         </div>
       </div>
     </div>

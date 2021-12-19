@@ -1,3 +1,40 @@
 .img{
     width: 100%;
 }
+.backImg2{
+    background-image: url("img2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 557px;
+}
+.backImg3{
+    background-image: url("img3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 558px;
+}
+.homePageText {
+    font-size: 49px;
+    font-weight: bold;
+    color: #ED4A37;
+}
+span, h5{
+    color: white;
+}
+h4{
+    color: white;
+}
+ul{
+    list-style-type: decimal;
+}
+li{
+    color: white;
+    font-size: 14px;
+}
+.orange{
+    background: rgba(255, 165, 0, 0.8);
+
+}
+.red{
+    background: rgba(255, 0, 0, 0.7);
+}
