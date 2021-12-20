@@ -36,8 +36,6 @@ export const profile = createAsyncThunk(
 
       const decodeToken = await jwtDecode(token)
 
-      console.log(decodeToken)
-
       const res = await fetch(
         `http://localhost:6557/users/profile/${decodeToken.id}`
       )
@@ -80,7 +78,6 @@ const signInSlice = createSlice({
     },
     [login.fulfilled]: (state, action) => {
       state.pending = false
-      state.error = null
       state.token = action.payload
     },
     [login.rejected]: (state, action) => {
