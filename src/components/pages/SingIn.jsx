@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import React, { useEffect } from "react"
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
 import {
   TextField,
   Link,
@@ -11,37 +11,37 @@ import {
   Button,
   CssBaseline,
   Avatar,
-} from "@mui/material";
-import { useDispatch } from "react-redux";
-import { login, resetErrors } from "../../store/signInSlice";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+} from "@mui/material"
+import { useDispatch } from "react-redux"
+import { login, resetErrors } from "../../store/signInSlice"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
-const theme = createTheme();
+const theme = createTheme()
 
 const SingIn = () => {
-  const { error, token } = useSelector((state) => state.signIn);
+  const { error, token } = useSelector((state) => state.signIn)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  token && navigate("/");
+  token && navigate("/")
 
   useEffect(() => {
-    dispatch(resetErrors());
-  }, [dispatch]);
+    dispatch(resetErrors())
+  }, [dispatch])
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
     dispatch(
       login({
         login: data.get("login"),
         password: data.get("password"),
       })
-    );
-  };
+    )
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -109,7 +109,7 @@ const SingIn = () => {
         </Box>
       </Container>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default SingIn;
+export default SingIn

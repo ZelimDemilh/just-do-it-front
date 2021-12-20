@@ -1,8 +1,8 @@
-import React from "react";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { registration } from "../../store/registrySlice";
+import React from "react"
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { useDispatch, useSelector } from "react-redux"
+import { registration } from "../../store/registrySlice"
 import {
   Button,
   Typography,
@@ -17,18 +17,18 @@ import {
   MenuItem,
   Select,
   Avatar,
-} from "@mui/material";
+} from "@mui/material"
 
-const theme = createTheme();
+const theme = createTheme()
 
 const Registry = () => {
-  const { error, resMessage } = useSelector((state) => state.registry);
+  const { error, resMessage } = useSelector((state) => state.registry)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   function handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
     dispatch(
       registration({
         firstName: data.get("firstName"),
@@ -39,9 +39,7 @@ const Registry = () => {
         phone: data.get("phone"),
         isMaster: data.get("role"),
       })
-    );
-
-    // event.target.reset()
+    )
   }
 
   return (
@@ -179,7 +177,7 @@ const Registry = () => {
         </Box>
       </Container>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default Registry;
+export default Registry

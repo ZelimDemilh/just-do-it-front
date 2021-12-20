@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { profile } from "../../store/signInSlice";
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { createAsyncThunk } from "@reduxjs/toolkit"
+import { profile } from "../../store/signInSlice"
 
 const Profile = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const userDate = useSelector((state) => state.signIn.userDate);
+  const userDate = useSelector((state) => state.signIn.userDate)
 
   useEffect(() => {
-    dispatch(profile());
-  }, [dispatch]);
+    dispatch(profile())
+  }, [dispatch])
 
   return (
     <div className="card mb-3 container w-50 border-0 ">
@@ -27,40 +27,55 @@ const Profile = () => {
             <table className="table">
               <thead>
                 <tr>
-                  <th scope="col">Общая информация</th>
-                  <th scope="col">{userDate.firstName}</th>
+                  <th className="w-50">Общая информация</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row">Имя</th>
+                  <td>Имя:</td>
                   <td>{userDate.firstName}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Фамилия</th>
+                  <td>Фамилия:</td>
                   <td>{userDate.lastName}</td>
                 </tr>
+                <tr>
+                  <td>Роль:</td>
+                  <td>{userDate.isMaster ? "Заказчик" : "Исполнитель"}</td>
+                </tr>
+                {!userDate.isMaster ? (
+                  <tr>
+                    <td>Рейтинг:</td>
+                    <td>{userDate.rating}</td>
+                  </tr>
+                ) : null}
               </tbody>
+            </table>
+
+            <table className="table">
               <thead>
                 <tr>
-                  <th scope="col">Контакты</th>
-                  <td>Jacob</td>
+                  <th className="w-50">Контакты</th>
+                  <th></th>
                 </tr>
+              </thead>
+              <tbody>
                 <tr>
-                  <th scope="col">Номер телефона</th>
+                  <td>Номер телефона:</td>
                   <td>{userDate.phone}</td>
                 </tr>
                 <tr>
-                  <th scope="col">Электронный адрес</th>
+                  <td>Электронный адрес:</td>
                   <td>{userDate.email}</td>
                 </tr>
-              </thead>
+              </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
