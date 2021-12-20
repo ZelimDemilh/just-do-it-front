@@ -1,11 +1,11 @@
 import React from 'react';
 
-const CardTask = () => {
+const OneTask = () => {
     return (
         <div>
-            
+
         </div>
     );
 };
 
-export default CardTask;
+export default OneTask;
