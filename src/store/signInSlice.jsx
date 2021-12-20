@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import jwtDecode from "jwt-decode";
-import {useSelector} from "react-redux";
+import jwtDecode from "jwt-decode"
 
 export const login = createAsyncThunk(
   "signIn/login",
@@ -31,29 +30,29 @@ export const login = createAsyncThunk(
 
 export const profile = createAsyncThunk(
   "users/profile",
-  async function (_,{ rejectWithValue }) {
+  async function (_, { rejectWithValue }) {
     try {
-
       const token = localStorage.getItem("token")
 
       const decodeToken = await jwtDecode(token)
 
       console.log(decodeToken)
 
-      const res = await fetch(`http://localhost:6557/users/profile/${decodeToken.id}`)
-      
+      const res = await fetch(
+        `http://localhost:6557/users/profile/${decodeToken.id}`
+      )
+
       const data = await res.json()
 
-      if(data.error) {
+      if (data.error) {
         throw new Error(data.error)
       }
       return data
-
     } catch (error) {
-        return rejectWithValue(error.message)
+      return rejectWithValue(error.message)
     }
   }
-  )
+)
 
 const signInSlice = createSlice({
   name: "signIn",
@@ -63,7 +62,15 @@ const signInSlice = createSlice({
     error: null,
     token: localStorage.getItem("token"),
   },
-  reducers: {},
+  reducers: {
+    resetErrors(state) {
+      state.error = null
+    },
+    signOut(state) {
+      state.token = null
+      state.userDate = {}
+    },
+  },
 
   extraReducers: {
     [login.pending]: (state) => {
@@ -91,9 +98,9 @@ const signInSlice = createSlice({
       state.pending = false
       state.error = action.payload
     },
-  }
+  },
 })
 
-// export const {} = signInSlice.actions
+export const { resetErrors, signOut } = signInSlice.actions
 
 export default signInSlice.reducer
