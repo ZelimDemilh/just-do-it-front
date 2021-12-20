@@ -1,5 +1,5 @@
 import React from 'react';
-import img1 from "../img1.png";
+import img1 from "../images/img1.png";
 import cl from "../HomePage.module.css";
 
 const FirstSlide = () => {

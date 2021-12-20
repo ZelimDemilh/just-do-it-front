@@ -2,13 +2,13 @@
     width: 100%;
 }
 .backImg2{
-    background-image: url("img2.png");
+    background-image: url("./images/img2.png");
     background-repeat: no-repeat;
     background-size: cover;
     height: 557px;
 }
 .backImg3{
-    background-image: url("img3.png");
+    background-image: url("images/img3.png");
     background-repeat: no-repeat;
     background-size: cover;
     height: 558px;
