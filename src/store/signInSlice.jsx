@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import jwt_decode from "jwt-decode"
 
 export const login = createAsyncThunk(
   "signIn/login",
@@ -20,6 +21,11 @@ export const login = createAsyncThunk(
 
       localStorage.setItem("token", data.token)
 
+      const decodedToken = jwt_decode(data.token)
+      console.log(decodedToken)
+
+      console.log(decodedToken.id)
+
       return data.token
     } catch (error) {
       return rejectWithValue(error.message)
@@ -35,7 +41,11 @@ const signInSlice = createSlice({
     error: null,
     token: localStorage.getItem("token"),
   },
-  reducers: {},
+  reducers: {
+    resetError(state) {
+      state.error = null
+    },
+  },
   extraReducers: {
     [login.pending]: (state) => {
       state.pending = true
@@ -53,6 +63,6 @@ const signInSlice = createSlice({
   },
 })
 
-// export const {} = signInSlice.actions
+export const { resetError } = signInSlice.actions
 
 export default signInSlice.reducer

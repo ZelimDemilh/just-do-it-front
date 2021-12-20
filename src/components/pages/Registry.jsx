@@ -40,8 +40,6 @@ const Registry = () => {
         isMaster: data.get("role"),
       })
     )
-
-    // event.target.reset()
   }
 
   return (
