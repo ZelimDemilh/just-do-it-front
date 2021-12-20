@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import jwtDecode from "jwt-decode"
 
 export const login = createAsyncThunk(
   "signIn/login",
@@ -63,8 +64,12 @@ const signInSlice = createSlice({
   },
 
   reducers: {
-    resetError(state) {
+    resetErrors(state) {
       state.error = null
+    },
+    signOut(state) {
+      state.token = null
+      state.userDate = {}
     },
   },
 
@@ -97,6 +102,6 @@ const signInSlice = createSlice({
   },
 })
 
-export const { resetError } = signInSlice.actions
+export const { resetErrors, signOut } = signInSlice.actions
 
 export default signInSlice.reducer

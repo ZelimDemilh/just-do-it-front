@@ -13,7 +13,7 @@ import {
   Avatar,
 } from "@mui/material"
 import { useDispatch } from "react-redux"
-import { login, resetError } from "../../store/signInSlice"
+import { login, resetErrors } from "../../store/signInSlice"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
@@ -26,11 +26,11 @@ const SingIn = () => {
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    dispatch(resetError())
-  }, [dispatch])
-
   token && navigate("/")
+
+  useEffect(() => {
+    dispatch(resetErrors())
+  }, [dispatch])
 
   const handleSubmit = (event) => {
     event.preventDefault()

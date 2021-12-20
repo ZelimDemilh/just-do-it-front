@@ -4,7 +4,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { profile } from "../../store/signInSlice";
 
 const Profile = () => {
-
   const dispatch = useDispatch();
 
   const userDate = useSelector((state) => state.signIn.userDate);
@@ -58,8 +57,8 @@ const Profile = () => {
               </thead>
             </table>
           </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
