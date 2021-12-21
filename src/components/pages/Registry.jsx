@@ -18,6 +18,7 @@ import {
   Select,
   Avatar,
 } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 
 const theme = createTheme()
 
@@ -25,6 +26,10 @@ const Registry = () => {
   const { error, resMessage } = useSelector((state) => state.registry)
 
   const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
+  resMessage && navigate("/signIn")
 
   function handleSubmit(event) {
     event.preventDefault()

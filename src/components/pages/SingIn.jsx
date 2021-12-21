@@ -15,7 +15,7 @@ import {
 import { useDispatch } from "react-redux"
 import { login, resetErrors } from "../../store/signInSlice"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const theme = createTheme()
 
@@ -25,8 +25,11 @@ const SingIn = () => {
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
+  const location = useLocation()
 
-  token && navigate("/")
+  const fromPage = location.state?.from?.pathname || "/"
+
+  token && navigate(fromPage, { replace: true })
 
   useEffect(() => {
     dispatch(resetErrors())
