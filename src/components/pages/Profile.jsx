@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { profile } from "../../store/signInSlice"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const Profile = () => {
   const token = useSelector((state) => state.signIn.token)
@@ -10,7 +10,7 @@ const Profile = () => {
 
   const navigate = useNavigate()
 
-  !token && navigate("/")
+  !token && navigate(-1)
 
   const userDate = useSelector((state) => state.signIn.userDate)
 

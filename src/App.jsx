@@ -20,14 +20,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="registry" element={<Registry />} />
           <Route path="signIn" element={<SingIn />} />
-          <Route
-            path="profile"
-            element={
-              <Auth>
-                <Profile />
-              </Auth>
-            }
-          />
+          <Route path="profile" element={<Profile />} />
           <Route path="tasks" element={<Tasks />} />
           <Route path="task/:id" element={<OneTask />} />
           <Route
