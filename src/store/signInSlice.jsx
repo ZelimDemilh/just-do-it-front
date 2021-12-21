@@ -68,6 +68,7 @@ const signInSlice = createSlice({
     signOut(state) {
       state.token = null
       state.userDate = {}
+      localStorage.removeItem("token")
     },
   },
 

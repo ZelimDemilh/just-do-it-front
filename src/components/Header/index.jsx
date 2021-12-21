@@ -1,18 +1,17 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import cl from "./Header.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Button } from "@mui/material";
-import { signOut } from "../../store/signInSlice";
+import React from "react"
+import { NavLink } from "react-router-dom"
+import cl from "./Header.module.css"
+import { useDispatch, useSelector } from "react-redux"
+import ExitToAppIcon from "@mui/icons-material/ExitToApp"
+import { Button } from "@mui/material"
+import { signOut } from "../../store/signInSlice"
 
 const Header = () => {
-  const { token } = useSelector((state) => state.signIn);
+  const { token } = useSelector((state) => state.signIn)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const handleExit = () =>
-    dispatch(signOut()) && localStorage.removeItem("token");
+  const handleExit = () => dispatch(signOut())
 
   return (
     <div className="container ">
@@ -70,7 +69,7 @@ const Header = () => {
         </div>
       </header>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
