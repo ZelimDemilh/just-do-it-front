@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { getUsers } from '../../../store/usersSlice';
+import ListGroup from 'react-bootstrap/ListGroup'
 
 const AllTasks = () => {
   const tasks = useSelector((state) => state.task.task);
@@ -99,9 +100,6 @@ const AllTasks = () => {
             <div className={cl.loader}></div>
           </div>
           <div className="col-1">
-            <div className="arrow-block">
-              {/*<a href="#"><img src={img} alt="" width="80" className="arrow"/></a>*/}
-            </div>
           </div>
         </div>
       </div>
@@ -112,48 +110,23 @@ const AllTasks = () => {
     <div>
       <div className="row">
         <div className="map col-3">
-          <div className={cl.mapBorder}>
-            <ReactMapGL
-              {...viewport}
-              mapboxApiAccessToken="pk.eyJ1IjoiZXhjMG0iLCJhIjoiY2t4NnFoZTVkMnZpMjJ2cDh2aDllYjFmaCJ9.ALFjshQYvyK8G1RHIMSj3w"
-              mapStyle="mapbox://styles/exc0m/ckx6qzvrb8be414o48ev4me7x"
-              onViewportChange={(viewport) => {
-                setViewport(viewport);
-              }}
-            >
-              {tasks.map(item => {
-                return (
-                  <Marker latitude={Number(item.latitude)} longitude={Number(item.longitude)}>
-                    <img
-                      width={"15px"}
-                      src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
-                      alt=""
-                    />
-                  </Marker>
-                )
-              })}
-            </ReactMapGL>
-          </div>
           <div className="border border-dark rounded col-8 text-center">
             <b className="pt-5">Категории</b>
-            <hr />
             <NavLink to="/tasks" className="text-decoration-none text-black">
               Все категории
             </NavLink>
-            <hr />
+            <ListGroup variant="flush">
             {categories.map((item) => {
               return (
-                <>
-                  <NavLink
-                    className="text-dark my-2 text-decoration-none"
-                    to={`/tasks/${item._id}`}
-                  >
-                    {item.name}
-                  </NavLink>
-                  <hr />
-                </>
+                    <ListGroup.Item><NavLink
+                        className="text-dark my-2 text-decoration-none"
+                        to={`/tasks/${item._id}`}
+                    >
+                      {item.name}
+                    </NavLink></ListGroup.Item>
               );
             })}
+            </ListGroup>
           </div>
         </div>
         <div className="col-md-6">
@@ -213,7 +186,28 @@ const AllTasks = () => {
         </div>
         <div className="col-1">
           <div className="arrow-block">
-            {/*<a href="#"><img src={img} alt="" width="80" className={cl.arrow}/></a>*/}
+            <div className={cl.mapBorder}>
+              <ReactMapGL
+                  {...viewport}
+                  mapboxApiAccessToken="pk.eyJ1IjoiZXhjMG0iLCJhIjoiY2t4NnFoZTVkMnZpMjJ2cDh2aDllYjFmaCJ9.ALFjshQYvyK8G1RHIMSj3w"
+                  mapStyle="mapbox://styles/exc0m/ckx6qzvrb8be414o48ev4me7x"
+                  onViewportChange={(viewport) => {
+                    setViewport(viewport);
+                  }}
+              >
+                {tasks.map(item => {
+                  return (
+                      <Marker latitude={Number(item.latitude)} longitude={Number(item.longitude)}>
+                        <img
+                            width={"15px"}
+                            src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
+                            alt=""
+                        />
+                      </Marker>
+                  )
+                })}
+              </ReactMapGL>
+            </div>
           </div>
         </div>
       </div>

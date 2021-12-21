@@ -47,10 +47,6 @@ const TasksCategories = () => {
     zoom: 10,
   });
 
-  // const hoverTask = {
-  //   hoverTask:
-  // }
-
   if (preloader) {
     return (
       <div>
