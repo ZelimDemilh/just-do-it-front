@@ -6,11 +6,14 @@ import { uploadTasks } from "../../../store/taskSlice";
 import { uploadCategories } from "../../../store/categoriesSlice";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import ReactMapGL, { Marker } from 'react-map-gl';
+import { getUsers } from '../../../store/usersSlice';
 
 const AllTasks = () => {
   const tasks = useSelector((state) => state.task.task);
   const categories = useSelector((state) => state.categories.categories);
   const preloader = useSelector((state) => state.task.pending);
+  const users = useSelector((state) => state.users.users);
 
   const [text, setText] = useState("");
 
@@ -22,6 +25,9 @@ const AllTasks = () => {
   useEffect(() => {
     dispatch(uploadCategories());
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUsers())
+  }, [dispatch])
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -33,11 +39,19 @@ const AllTasks = () => {
 
   const { id } = useParams();
 
+  console.log(users)
+
+  const [viewport, setViewport] = useState({
+    latitude: 43.31195,
+    longitude: 45.68895,
+    width: "300px",
+    height: "300px",
+    zoom: 10,
+  });
+
   if (preloader) {
     return (
       <div>
-        <header id="top"></header>
-        <div className=""></div>
         <div className="row">
           <div className="map col-3">
             <iframe
@@ -96,36 +110,46 @@ const AllTasks = () => {
 
   return (
     <div>
-      <header id="top"></header>
-      <div className=""></div>
       <div className="row">
         <div className="map col-3">
-          <iframe
-            src="https://yandex.ru/map-widget/v1/?um=constructor%3A8d0b3f0796e7a4765c711545cdc89dbc593eaccf0b4c516af67bb4f6b3bc726d&amp;source=constructor"
-            width="245"
-            height="245"
-            frameBorder="0"
-            className="
-            border border-dark rounded mx-1 mb-1
-            shadow
-            "
-          />
+          <div className={cl.mapBorder}>
+            <ReactMapGL
+              {...viewport}
+              mapboxApiAccessToken="pk.eyJ1IjoiZXhjMG0iLCJhIjoiY2t4NnFoZTVkMnZpMjJ2cDh2aDllYjFmaCJ9.ALFjshQYvyK8G1RHIMSj3w"
+              mapStyle="mapbox://styles/exc0m/ckx6qzvrb8be414o48ev4me7x"
+              onViewportChange={(viewport) => {
+                setViewport(viewport);
+              }}
+            >
+              {tasks.map(item => {
+                return (
+                  <Marker latitude={Number(item.latitude)} longitude={Number(item.longitude)}>
+                    <img
+                      width={"15px"}
+                      src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
+                      alt=""
+                    />
+                  </Marker>
+                )
+              })}
+            </ReactMapGL>
+          </div>
           <div className="border border-dark rounded col-8 text-center">
             <b className="pt-5">Категории</b>
             <hr />
-            <a href="/tasks" className="text-decoration-none text-black">
+            <NavLink to="/tasks" className="text-decoration-none text-black">
               Все категории
-            </a>
+            </NavLink>
             <hr />
             {categories.map((item) => {
               return (
                 <>
-                  <a
+                  <NavLink
                     className="text-dark my-2 text-decoration-none"
-                    href={`/tasks/${item._id}`}
+                    to={`/tasks/${item._id}`}
                   >
                     {item.name}
-                  </a>
+                  </NavLink>
                   <hr />
                 </>
               );
@@ -157,12 +181,19 @@ const AllTasks = () => {
                       alt=""
                       width="50"
                       height="50"
+                      className={cl.img}
                     />
                   </div>
                   <h3 className="col mt-1">{item.header}</h3>
                   <div className="col-2">
                     <h3 className="mb-2">{item.price}₽</h3>
-                    <h6>Имя автора</h6>
+                    {users.map((user) => {
+                      if (user._id === item.user) {
+                        return(
+                          <h6 className="text-center">{`${ user.firstName } ${user.lastName}`}</h6>
+                        )
+                      }
+                    })}
                   </div>
                 </div>
                 <div className="row">
