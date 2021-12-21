@@ -1,10 +1,16 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { createAsyncThunk } from "@reduxjs/toolkit"
 import { profile } from "../../store/signInSlice"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const Profile = () => {
+  const token = useSelector((state) => state.signIn.token)
+
   const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
+  !token && navigate("/")
 
   const userDate = useSelector((state) => state.signIn.userDate)
 
