@@ -29,7 +29,7 @@ const SingIn = () => {
 
   const fromPage = location.state?.from?.pathname || "/"
 
-  token && navigate(fromPage)
+  token && navigate(fromPage, { replace: true })
 
   useEffect(() => {
     dispatch(resetErrors())
