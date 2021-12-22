@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react"
+import { Rating } from "@mui/material"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import {profile, updateAvatar} from "../../store/signInSlice"
+import { profile, updateAvatar } from "../../store/signInSlice"
 
 const Profile = () => {
-
   const [newAvatar, setNewAvatar] = useState(null)
 
   const token = useSelector((state) => state.signIn.token)
@@ -33,21 +33,19 @@ const Profile = () => {
     <div className="card mb-3 container w-50 border-0 ">
       <div className="row g-0 d-flex">
         <div class="col-md-4">
-            <img
-              src={`http://localhost:6557/${userDate.avatar}`}
-              className="img-fluid rounded-start h-50"
-              alt="..."
+          <img
+            src={`http://localhost:6557/${userDate.avatar}`}
+            className="img-fluid rounded-start h-50"
+            alt="..."
           />
-            <input
-              type="file"
-              id="formFile"
-              accept="image/*"
-              name="avatar"
-              onChange={(e) => handleSetAvatar(e.target.files[0])}
+          <input
+            type="file"
+            id="formFile"
+            accept="image/*"
+            name="avatar"
+            onChange={(e) => handleSetAvatar(e.target.files[0])}
           />
-          <button onClick={handleUpdateAvatar}>
-            Next
-          </button>
+          <button onClick={handleUpdateAvatar}>Next</button>
         </div>
         <div className="col-md-8">
           <div className="card-body">
@@ -73,8 +71,15 @@ const Profile = () => {
                 </tr>
                 {!userDate.isMaster ? (
                   <tr>
-                    <td>Рейтинг:</td>
-                    <td>{userDate.rating}</td>
+                    <td>Ваш рейтинг:</td>
+                    <td>
+                      <Rating
+                        name="half-rating-read"
+                        defaultValue={userDate.rating}
+                        precision={0.5}
+                        readOnly
+                      />
+                    </td>
                   </tr>
                 ) : (
                   <Link
