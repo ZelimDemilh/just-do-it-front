@@ -11,6 +11,7 @@ import TasksCategories from "./components/pages/Tasks/categories"
 import OneTask from "./components/pages/Tasks/OneTask"
 import Layout from "./components/Layout"
 import Auth from "./hoc/Auth"
+import MyTasks from "./components/pages/myTasks"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="signIn" element={<SingIn />} />
           <Route path="profile" element={<Profile />} />
           <Route path="tasks" element={<Tasks />} />
+          <Route path="my-tasks" element={<MyTasks />} />
           <Route path="task/:id" element={<OneTask />} />
           <Route
             path="addTask"
