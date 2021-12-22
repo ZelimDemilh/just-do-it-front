@@ -38,16 +38,19 @@ const Profile = () => {
               className="img-fluid rounded-start h-50"
               alt="..."
           />
+          <div>
             <input
-              type="file"
-              id="formFile"
-              accept="image/*"
-              name="avatar"
-              onChange={(e) => handleSetAvatar(e.target.files[0])}
-          />
-          <button onClick={handleUpdateAvatar}>
-            Next
-          </button>
+                className="form-control"
+                type="file"
+                id="formFile"
+                accept="image/*"
+                name="avatar"
+                onChange={(e)=>handleSetAvatar(e.target.files[0])}
+            />
+            <button  className="btn btn-success" onClick={handleUpdateAvatar}>
+              Изменить
+            </button>
+          </div>
         </div>
         <div className="col-md-8">
           <div className="card-body">
@@ -55,7 +58,6 @@ const Profile = () => {
               <thead>
                 <tr>
                   <th className="w-50">Общая информация</th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -84,7 +86,6 @@ const Profile = () => {
               <thead>
                 <tr>
                   <th className="w-50">Контакты</th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -101,6 +102,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+
     </div>
   )
 }
