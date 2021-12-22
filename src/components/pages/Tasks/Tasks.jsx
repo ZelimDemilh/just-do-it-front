@@ -50,72 +50,81 @@ const AllTasks = () => {
     zoom: 10,
   });
 
-  if (preloader) {
-    return (
-      <div>
-        <div className="row">
-          <div className="map col-3">
-            <iframe
-              src="https://yandex.ru/map-widget/v1/?um=constructor%3A8d0b3f0796e7a4765c711545cdc89dbc593eaccf0b4c516af67bb4f6b3bc726d&amp;source=constructor"
-              width="245"
-              height="245"
-              frameBorder="0"
-              className="
-            border border-dark rounded mx-1 mb-1
-            shadow
-            "
-            />
-            <div className="border border-dark rounded mx-1 col-8">
-              <nav className="nav flex-column text-center">
-                <b className="mt-2">Категории</b>
-                <hr />
-                {categories.map((item) => {
-                  return (
-                    <>
-                      <a className="text-dark my-2" href={`/tasks/${item._id}`}>
-                        {item.name}
-                      </a>
-                      <hr />
-                    </>
-                  );
-                })}
-              </nav>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="input-group mb-5">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Напишите с чем вам нужна помощь"
-                aria-label="Recipient's username"
-                aria-describedby="basic-addon2"
-              />
-              <div className="input-group-append">
-                <button className="btn btn-outline-danger" type="button">
-                  Найти
-                </button>
-              </div>
-            </div>
-            <div className={cl.loader}></div>
-          </div>
-          <div className="col-1">
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // if (preloader) {
+  //   return (
+  //     <div>
+  //       <div className="row">
+  //         <div className="map col-3">
+  //           <iframe
+  //             src="https://yandex.ru/map-widget/v1/?um=constructor%3A8d0b3f0796e7a4765c711545cdc89dbc593eaccf0b4c516af67bb4f6b3bc726d&amp;source=constructor"
+  //             width="245"
+  //             height="245"
+  //             frameBorder="0"
+  //             className="
+  //           border border-dark rounded mx-1 mb-1
+  //           shadow
+  //           "
+  //           />
+  //           <div className="border border-dark rounded mx-1 col-8">
+  //             <nav className="nav flex-column text-center">
+  //               <b className="mt-2">Категории</b>
+  //               <hr />
+  //               <ListGroup variant="flush">
+  //                 <ListGroup.Item>
+  //                   <NavLink to="/tasks" className="text-decoration-none text-black">
+  //                     Все категории
+  //                   </NavLink>
+  //                 </ListGroup.Item>
+  //                 {categories.map((item) => {
+  //                   return (
+  //                       <ListGroup.Item><NavLink
+  //                           className="text-dark my-2 text-decoration-none"
+  //                           to={`/tasks/${item._id}`}
+  //                       >
+  //                         {item.name}
+  //                       </NavLink></ListGroup.Item>
+  //                   );
+  //                 })}
+  //               </ListGroup>
+  //             </nav>
+  //           </div>
+  //         </div>
+  //         <div className="col-md-6">
+  //           <div className="input-group mb-5">
+  //             <input
+  //               type="text"
+  //               className="form-control"
+  //               placeholder="Напишите с чем вам нужна помощь"
+  //               aria-label="Recipient's username"
+  //               aria-describedby="basic-addon2"
+  //             />
+  //             <div className="input-group-append">
+  //               <button className="btn btn-outline-danger" type="button">
+  //                 Найти
+  //               </button>
+  //             </div>
+  //           </div>
+  //           <div className={cl.loader}></div>
+  //         </div>
+  //         <div className="col-1">
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
       <div className="row">
         <div className="map col-3">
           <div className="border border-dark rounded col-8 text-center">
-            <b className="pt-5">Категории</b>
-            <NavLink to="/tasks" className="text-decoration-none text-black">
-              Все категории
-            </NavLink>
+            <b className="pt-5 ">Категории</b> <hr className="m-1"/>
             <ListGroup variant="flush">
+              <ListGroup.Item>
+                <NavLink to="/tasks" className="text-decoration-none text-black">
+                  Все категории
+                </NavLink>
+              </ListGroup.Item>
             {categories.map((item) => {
               return (
                     <ListGroup.Item><NavLink
@@ -129,61 +138,61 @@ const AllTasks = () => {
             </ListGroup>
           </div>
         </div>
-        <div className="col-md-6">
+        {preloader? <div className={`col-md-6 ${cl.loader}`}></div>:<div className="col-md-6">
           <div className="input-group mb-3">
             <input
-              type="text"
-              className="form-control"
-              value={text}
-              onChange={(e) => handleChange(e)}
-              placeholder="Напишите с чем вам нужна помощь"
-              aria-label="Напишите с чем вам нужна помощь"
-              aria-describedby="basic-addon2"
+                type="text"
+                className="form-control"
+                value={text}
+                onChange={(e) => handleChange(e)}
+                placeholder="Напишите с чем вам нужна помощь"
+                aria-label="Напишите с чем вам нужна помощь"
+                aria-describedby="basic-addon2"
             />
           </div>
           {filteredTasks.map((item) => {
             return (
-              <div
-                className="shadow border border-dark rounded-2 p-4 mt-3"
-                id="task"
-              >
-                <div className="row">
-                  <div className="img col-2">
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/149/149452.png"
-                      alt=""
-                      width="50"
-                      height="50"
-                      className={cl.img}
-                    />
+                <div
+                    className="shadow border border-dark rounded-2 p-4 mt-3"
+                    id="task"
+                >
+                  <div className="row">
+                    <div className="img col-2">
+                      <img
+                          src="https://cdn-icons-png.flaticon.com/512/149/149452.png"
+                          alt=""
+                          width="50"
+                          height="50"
+                          className={cl.img}
+                      />
+                    </div>
+                    <h3 className="col mt-1">{item.header}</h3>
+                    <div className="col-2">
+                      <h3 className="mb-2">{item.price}₽</h3>
+                      {users.map((user) => {
+                        if (user._id === item.user) {
+                          return(
+                              <h6 className="text-center">{`${ user.firstName } ${user.lastName}`}</h6>
+                          )
+                        }
+                      })}
+                    </div>
                   </div>
-                  <h3 className="col mt-1">{item.header}</h3>
-                  <div className="col-2">
-                    <h3 className="mb-2">{item.price}₽</h3>
-                    {users.map((user) => {
-                      if (user._id === item.user) {
-                        return(
-                          <h6 className="text-center">{`${ user.firstName } ${user.lastName}`}</h6>
-                        )
+                  <div className="row">
+                    {categories.map((category) => {
+                      if (category._id === item.category) {
+                        return (
+                            <div className="bg-danger text-white text-center rounded-pill col-3 mx-1 pb-1">
+                              <small className="mx-2">{category.name}</small>
+                            </div>
+                        );
                       }
                     })}
                   </div>
                 </div>
-                <div className="row">
-                  {categories.map((category) => {
-                    if (category._id === item.category) {
-                      return (
-                        <div className="bg-danger text-white text-center rounded-pill col-3 mx-1 pb-1">
-                          <small className="mx-2">{category.name}</small>
-                        </div>
-                      );
-                    }
-                  })}
-                </div>
-              </div>
             );
           })}
-        </div>
+        </div>}
         <div className="col-1">
           <div className="arrow-block">
             <div className={cl.mapBorder}>

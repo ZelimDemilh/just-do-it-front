@@ -7,6 +7,7 @@ import { uploadCategories } from "../../../store/categoriesSlice";
 import { NavLink, useParams } from "react-router-dom";
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { getUsers } from '../../../store/usersSlice';
+import ListGroup from "react-bootstrap/ListGroup";
 
 const TasksCategories = () => {
   const tasks = useSelector((state) => state.task.task);
@@ -47,113 +48,89 @@ const TasksCategories = () => {
     zoom: 10,
   });
 
-  if (preloader) {
-    return (
-      <div>
-        <div className="row">
-          <div className="map col-3">
-            <iframe
-              src="https://yandex.ru/map-widget/v1/?um=constructor%3A8d0b3f0796e7a4765c711545cdc89dbc593eaccf0b4c516af67bb4f6b3bc726d&amp;source=constructor"
-              width="245"
-              height="245"
-              frameBorder="0"
-              className="
-            border border-dark rounded mx-1 mb-1
-            shadow
-            "
-            />
-            <div className="border border-dark rounded mx-1 col-8">
-              <nav className="nav flex-column text-center">
-                <b className="mt-2">Категории</b>
-                <hr />
-                {categories.map((item) => {
-                  return (
-                    <>
-                      <a className="text-dark my-2" href={`/tasks/${item._id}`}>
-                        {item.name}
-                      </a>
-                      <hr />
-                    </>
-                  );
-                })}
-              </nav>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="input-group mb-5">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Напишите с чем вам нужна помощь"
-                aria-label="Recipient's username"
-                aria-describedby="basic-addon2"
-              />
-              <div className="input-group-append">
-                <button className="btn btn-outline-danger" type="button">
-                  Найти
-                </button>
-              </div>
-            </div>
-            <div className={cl.loader}></div>
-          </div>
-          <div className="col-1">
-            <div className="arrow-block">
-              {/*<a href="#"><img src={img} alt="" width="80" className="arrow"/></a>*/}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // if (preloader) {
+  //   return (
+  //     <div>
+  //       <div className="row">
+  //         <div className="map col-3">
+  //           <iframe
+  //             src="https://yandex.ru/map-widget/v1/?um=constructor%3A8d0b3f0796e7a4765c711545cdc89dbc593eaccf0b4c516af67bb4f6b3bc726d&amp;source=constructor"
+  //             width="245"
+  //             height="245"
+  //             frameBorder="0"
+  //             className="
+  //           border border-dark rounded mx-1 mb-1
+  //           shadow
+  //           "
+  //           />
+  //           <div className="border border-dark rounded mx-1 col-8">
+  //             <nav className="nav flex-column text-center">
+  //               <b className="mt-2">Категории</b>
+  //               <hr />
+  //               {categories.map((item) => {
+  //                 return (
+  //                   <>
+  //                     <a className="text-dark my-2" href={`/tasks/${item._id}`}>
+  //                       {item.name}
+  //                     </a>
+  //                     <hr />
+  //                   </>
+  //                 );
+  //               })}
+  //             </nav>
+  //           </div>
+  //         </div>
+  //         <div className="col-md-6">
+  //           <div className="input-group mb-5">
+  //             <input
+  //               type="text"
+  //               className="form-control"
+  //               placeholder="Напишите с чем вам нужна помощь"
+  //               aria-label="Recipient's username"
+  //               aria-describedby="basic-addon2"
+  //             />
+  //             <div className="input-group-append">
+  //               <button className="btn btn-outline-danger" type="button">
+  //                 Найти
+  //               </button>
+  //             </div>
+  //           </div>
+  //           <div className={cl.loader}></div>
+  //         </div>
+  //         <div className="col-1">
+  //           <div className="arrow-block">
+  //             {/*<a href="#"><img src={img} alt="" width="80" className="arrow"/></a>*/}
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
       <div className="row">
         <div className="map col-3">
-          <div className={cl.mapBorder}>
-            <ReactMapGL
-              {...viewport}
-              mapboxApiAccessToken="pk.eyJ1IjoiZXhjMG0iLCJhIjoiY2t4NnFoZTVkMnZpMjJ2cDh2aDllYjFmaCJ9.ALFjshQYvyK8G1RHIMSj3w"
-              mapStyle="mapbox://styles/exc0m/ckx6qzvrb8be414o48ev4me7x"
-              onViewportChange={(viewport) => {
-                setViewport(viewport);
-              }}
-            >
-              {tasks.map(item => {
-                if (item.category === id){
-                  return (
-                    <Marker latitude={Number(item.latitude)} longitude={Number(item.longitude)}>
-                      <img
-                        width={"15px"}
-                        src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
-                        alt=""
-                      />
-                    </Marker>
-                  )
-                }
+          <div className="border border-dark rounded col-8 text-center">
+            <b className="pt-5 ">Категории</b> <hr className="m-1"/>
+            <ListGroup variant="flush">
+              <ListGroup.Item>
+                <NavLink to="/tasks" className="text-decoration-none text-black">
+                  Все категории
+                </NavLink>
+              </ListGroup.Item>
+              {categories.map((item) => {
+                return (
+                    <ListGroup.Item>
+                      <NavLink
+                        className="text-dark my-2 text-decoration-none"
+                        to={`/tasks/${item._id}`}
+                    >
+                      {item.name}
+                    </NavLink></ListGroup.Item>
+                );
               })}
-            </ReactMapGL>
-          </div>
-          <div className="border border-dark rounded mx-1 col-8 text-center">
-            <b className="mt-2">Категории</b>
-            <hr />
-            <NavLink to="/tasks" className="text-decoration-none text-black active">
-              Все категории
-            </NavLink>
-            <hr />
-            {categories.map((item) => {
-              return (
-                <>
-                  <NavLink
-                    className="text-dark my-2 text-decoration-none active"
-                    to={`/tasks/${item._id}`}
-                  >
-                    {item.name}
-                  </NavLink>
-                  <hr />
-                </>
-              );
-            })}
+            </ListGroup>
           </div>
         </div>
         <div className="col-md-6">
@@ -214,7 +191,30 @@ const TasksCategories = () => {
         </div>
         <div className="col-1">
           <div className="arrow-block">
-            {/*<a href="#"><img src={img} alt="" width="80" className={cl.arrow}/></a>*/}
+            <div className={cl.mapBorder}>
+              <ReactMapGL
+                  {...viewport}
+                  mapboxApiAccessToken="pk.eyJ1IjoiZXhjMG0iLCJhIjoiY2t4NnFoZTVkMnZpMjJ2cDh2aDllYjFmaCJ9.ALFjshQYvyK8G1RHIMSj3w"
+                  mapStyle="mapbox://styles/exc0m/ckx6qzvrb8be414o48ev4me7x"
+                  onViewportChange={(viewport) => {
+                    setViewport(viewport);
+                  }}
+              >
+                {tasks.map(item => {
+                  if (item.category === id){
+                    return (
+                        <Marker latitude={Number(item.latitude)} longitude={Number(item.longitude)}>
+                          <img
+                              width={"15px"}
+                              src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
+                              alt=""
+                          />
+                        </Marker>
+                    )
+                  }
+                })}
+              </ReactMapGL>
+            </div>
           </div>
         </div>
       </div>

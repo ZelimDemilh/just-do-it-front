@@ -1,6 +1,43 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import jwtDecode from "jwt-decode"
 
+export const updateAvatar = createAsyncThunk(
+    "signIn/update",
+    async function (newAvatar, {rejectWithValue}) {
+      try {
+
+        const formData = new FormData()
+
+        formData.append("avatar", newAvatar)
+
+        console.log(formData)
+
+        const token = localStorage.getItem("token")
+
+        const decodeToken = await jwtDecode(token)
+
+        const res = await fetch(`http://localhost:6557//update/${decodeToken.id}`,{
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: formData
+        })
+
+        const data = res.json()
+
+        if(data.error){
+          throw new Error(data.error)
+        }
+
+        return data
+      } catch (e) {
+        return rejectWithValue(e.error)
+
+      }
+    }
+)
+
 export const login = createAsyncThunk(
   "signIn/login",
   async function (userData, { rejectWithValue }) {
