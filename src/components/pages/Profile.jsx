@@ -1,9 +1,12 @@
-import React, { useEffect } from "react"
+import React, {useEffect, useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { profile } from "../../store/signInSlice"
 import { Link, useNavigate } from "react-router-dom"
+import {profile, updateAvatar} from "../../store/signInSlice"
 
 const Profile = () => {
+
+  const [newAvatar, setNewAvatar] = useState(null)
+
   const token = useSelector((state) => state.signIn.token)
 
   const dispatch = useDispatch()
@@ -14,6 +17,14 @@ const Profile = () => {
 
   const userDate = useSelector((state) => state.signIn.userDate)
 
+  const handleSetAvatar = (file) => {
+    setNewAvatar(file)
+  }
+
+  const handleUpdateAvatar = () => {
+    dispatch(updateAvatar(newAvatar))
+  }
+
   useEffect(() => {
     dispatch(profile())
   }, [dispatch])
@@ -21,12 +32,22 @@ const Profile = () => {
   return (
     <div className="card mb-3 container w-50 border-0 ">
       <div className="row g-0 d-flex">
-        <div class="col-md-4 d-flex justify-content-center">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/1200px-User_icon-cp.svg.png"
-            className="img-fluid rounded-start h-50"
-            alt="..."
+        <div class="col-md-4">
+            <img
+              src={`http://localhost:6557/${userDate.avatar}`}
+              className="img-fluid rounded-start h-50"
+              alt="..."
           />
+            <input
+              type="file"
+              id="formFile"
+              accept="image/*"
+              name="avatar"
+              onChange={(e) => handleSetAvatar(e.target.files[0])}
+          />
+          <button onClick={handleUpdateAvatar}>
+            Next
+          </button>
         </div>
         <div className="col-md-8">
           <div className="card-body">

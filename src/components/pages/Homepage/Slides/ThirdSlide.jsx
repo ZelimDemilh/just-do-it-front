@@ -26,7 +26,7 @@ const ThirdSlide = () => {
           </ul>
         </div>
         <div className={`w-25 h-25 p-2 bg-opacity-50 ${cl.red}`}>
-          <h4 className="text-center p-3">Что может заказчик?</h4>
+          <h4 className="text-center p-3">Что может исполнитель?</h4>
           <ul>
             <li>Приостановить оплату</li>
             <li>Расторгнуть договор до окончания работ</li>
