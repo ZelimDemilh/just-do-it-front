@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { profile } from "../../store/signInSlice"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Profile = () => {
   const token = useSelector((state) => state.signIn.token)
@@ -55,7 +55,14 @@ const Profile = () => {
                     <td>Рейтинг:</td>
                     <td>{userDate.rating}</td>
                   </tr>
-                ) : null}
+                ) : (
+                  <Link
+                    to="/my-tasks"
+                    className="btn btn-danger w-100 p-1 my-2"
+                  >
+                    Мои объявления
+                  </Link>
+                )}
               </tbody>
             </table>
 
