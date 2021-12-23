@@ -1,6 +1,8 @@
 import React, { useEffect } from "react"
-import { Button, Card, Container } from "react-bootstrap"
+import { Badge, Button, Card, Container } from "react-bootstrap"
+import { Helmet } from "react-helmet"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { uploadCategories } from "../../store/categoriesSlice"
 import { deleteTask, uploadTasks } from "../../store/taskSlice"
 
@@ -22,28 +24,43 @@ const MyTasks = () => {
   const handleDeleteTask = (id) => dispatch(deleteTask(id))
 
   return (
-    <Container>
-      {myTasks.reverse().map((task, index) => (
-        <Card className="my-2 w-75 m-auto" key={task._id}>
-          <Card.Header as="h6">
-            {`#${index + 1} 
+    <>
+      <Helmet>
+        <title>Мои объявлении</title>
+      </Helmet>
+      <Container>
+        {myTasks.length === 0 ? (
+          <div className="container text-center my-5">
+            <h2>У вас нет объявлений</h2>
+            <Link to="/addTask" className="btn btn-danger my-2" type="button">
+              Создать объявление
+            </Link>
+          </div>
+        ) : (
+          myTasks.reverse().map((task, index) => (
+            <Card className="my-2 w-75 m-auto" key={task._id}>
+              <Card.Header as="h6">
+                {`#${index + 1} 
             ${task.header}`}
-          </Card.Header>
-          <Card.Body>
-            <Card.Text>{task.description}</Card.Text>
-            <div className="text-end">
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={() => handleDeleteTask(task._id)}
-              >
-                Удалить
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
-      ))}
-    </Container>
+              </Card.Header>
+              <Card.Body>
+                <Card.Text>{task.description}</Card.Text>
+                <div className="text-end">
+                  <Badge pill bg="info"></Badge>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => handleDeleteTask(task._id)}
+                  >
+                    Удалить
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          ))
+        )}
+      </Container>
+    </>
   )
 }
 
