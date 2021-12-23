@@ -27,10 +27,6 @@ const AddTask = () => {
         dispatch(profile())
     }, [dispatch])
 
-    useEffect(() => {
-    dispatch(uploadCategories())
-  }, [dispatch])
-
   const [heading, setHeading] = useState("")
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState("")

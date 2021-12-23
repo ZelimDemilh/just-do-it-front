@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { Badge, Button, Card, Container } from "react-bootstrap"
 import { Helmet } from "react-helmet"
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import { uploadCategories } from "../../store/categoriesSlice"
 import { deleteTask, uploadTasks } from "../../store/taskSlice"
 
@@ -47,6 +47,11 @@ const MyTasks = () => {
                 <Card.Text>{task.description}</Card.Text>
                 <div className="text-end">
                   <Badge pill bg="info"></Badge>
+                    <NavLink
+                        className="btn btn-success me-1 p-1"
+                        size="sm"
+                    >Выбрать исполнителя
+                    </NavLink>
                   <Button
                     variant="danger"
                     size="sm"

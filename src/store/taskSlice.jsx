@@ -1,4 +1,47 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import jwtDecode from "jwt-decode";
+
+export const userResponse = createAsyncThunk(
+    "tasks/response",
+     async function (idTask, {rejectWithValue}) {
+      try{
+        const res = await fetch(`http://localhost:6557/tasks/respond/${idTask}`, {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        })
+        const data = await res.json()
+
+        if(data.error){
+         throw new Error(data.error)
+        }
+
+        const token = localStorage.getItem("token")
+
+        const decodeToken = await jwtDecode(token)
+
+        const dataRes = {
+          data,
+          idUser: decodeToken.id,
+          idTask: idTask
+        }
+
+        return dataRes
+      } catch (e) {
+        return rejectWithValue(e.error)
+      }
+    }
+)
+
+// export const completeTask = createAsyncThunk(
+//     "tasks/completeTask",
+//     async function (id, {rejectWithValue}) {
+//
+//       const res = await fetch("")
+//
+//     }
+// )
 
 export const addTaskForm = createAsyncThunk(
   "taskForm/addTaskForm",
@@ -9,7 +52,7 @@ export const addTaskForm = createAsyncThunk(
     category: category,
     latitude: latitude,
     longitude: longitude,
-  }) {
+  }, {rejectWithValue}) {
     try {
       const res = await fetch("http://localhost:6557/tasks/add", {
         method: "POST",
@@ -30,7 +73,7 @@ export const addTaskForm = createAsyncThunk(
 
       return data
     } catch (e) {
-      console.log(e)
+      return rejectWithValue(e.error)
     }
   }
 )
@@ -94,6 +137,20 @@ const taskSlice = createSlice({
       state.task = action.payload
     },
     [uploadTasks.rejected]: (state, action) => {
+      state.pending = false
+      state.error = action.payload.error
+    },
+
+    [userResponse.pending]: (state, action) => {
+      state.pending = true
+      state.error = null
+    },
+    [userResponse.fulfilled]: (state, action) => {
+      state.pending = false
+      state.error = null
+      state.task.forEach((item) => item._id === action.payload.idTask && item.candidates.push(action.payload.idUser))
+    },
+    [userResponse.rejected]: (state, action) => {
       state.pending = false
       state.error = action.payload.error
     },

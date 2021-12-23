@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { uploadCategories } from "../../../store/categoriesSlice";
-import { uploadTasks } from "../../../store/taskSlice";
+import {uploadTasks, userResponse} from "../../../store/taskSlice";
 
 const OneTask = () => {
   const dispatch = useDispatch();
   const task = useSelector((state) => state.task.task);
   const categories = useSelector((state) => state.categories.categories);
+  const userDate = useSelector((state) => state.signIn.userDate);
 
   useEffect(() => {
     dispatch(uploadCategories());
@@ -21,12 +22,14 @@ const OneTask = () => {
 
   const singleTaskCategory = task.filter((item) => {
     if (id === item._id) {
+      console.log(userDate)
+      console.log(item)
       return item;
     }
   });
-
+  console.log(singleTaskCategory.candidates)
   const handleResponse = () => {
-    alert()
+    dispatch(userResponse(id))
   }
 
   return (
@@ -62,7 +65,8 @@ const OneTask = () => {
           </div>
           <div className="row mb-3 mt-5 text-center">
             <div className="col">
-              <span onClick={handleResponse} className="btn btn-success">Откликнуться</span>
+              {singleTaskCategory[0].candidates.indexOf(userDate._id)?
+                  <span onClick={handleResponse} className="btn btn-success">Откликнуться</span>:<p> Вы уже сделали отклик</p>}
             </div>
             <div className="col">
               <NavLink to={`/tasks/`}>
