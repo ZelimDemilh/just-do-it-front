@@ -50,7 +50,17 @@ const OneTask = () => {
                 }
               })}
             </div>
-            <div className="col-2">Дата</div>
+            <div className="col-2">
+              {task.map(item => {
+                if (item._id === id) {
+                  return (
+                      <h2>
+                        {item.price}₽
+                      </h2>
+                  )
+                }
+              })}
+            </div>
           </div>
           <hr />
           <div>
