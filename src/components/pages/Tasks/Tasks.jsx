@@ -163,8 +163,7 @@ const AllTasks = () => {
               <NavLink to={`/tasks/${item._id}`}>
                 <div
                     className="shadow border border-dark rounded-2 p-4 mt-3"
-                    id="task"
-                >
+                    id="task">
                   <div className="row">
                     <div className="img col-2">
                       <img
