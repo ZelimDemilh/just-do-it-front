@@ -5,10 +5,13 @@ export const userResponse = createAsyncThunk(
     "tasks/response",
      async function (idTask, {rejectWithValue}) {
       try{
+
+        const token = localStorage.getItem("token")
+
         const res = await fetch(`http://localhost:6557/tasks/respond/${idTask}`, {
           method: "PATCH",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           }
         })
         const data = await res.json()
@@ -17,7 +20,7 @@ export const userResponse = createAsyncThunk(
          throw new Error(data.error)
         }
 
-        const token = localStorage.getItem("token")
+
 
         const decodeToken = await jwtDecode(token)
 
@@ -42,6 +45,44 @@ export const userResponse = createAsyncThunk(
 //
 //     }
 // )
+
+export const addExecutor = createAsyncThunk(
+    "tasks/addExecutor",
+    async function ({id, idUser} , {rejectWithValue}) {
+      try {
+        const token = localStorage.getItem("token")
+
+        const res = await fetch(`http://localhost:6557/tasks/executor/${id}`, {
+          method: "POST",
+          body: JSON.stringify({
+            idUser: idUser
+          }),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        })
+
+        const data = await res.json()
+
+        if(data.error){
+          throw new Error(data.error)
+        }
+
+        const decodeToken = await jwtDecode(token)
+
+        const dataRes = {
+          data,
+          idUser: decodeToken.id,
+          idTask: id
+        }
+
+        return dataRes
+      } catch (e) {
+        return rejectWithValue(e.error)
+      }
+    }
+)
 
 export const addTaskForm = createAsyncThunk(
   "taskForm/addTaskForm",
@@ -120,6 +161,7 @@ const taskSlice = createSlice({
     task: [],
     pending: false,
     error: null,
+    allUsers: []
   },
   reducers: {
     getTasks(state, action) {
@@ -151,6 +193,20 @@ const taskSlice = createSlice({
       state.task.forEach((item) => item._id === action.payload.idTask && item.candidates.push(action.payload.idUser))
     },
     [userResponse.rejected]: (state, action) => {
+      state.pending = false
+      state.error = action.payload.error
+    },
+
+    [addExecutor.pending]: (state, action) => {
+      state.pending = true
+      state.error = null
+    },
+    [addExecutor.fulfilled]: (state, action) => {
+      state.pending = false
+      state.error = null
+      state.task.forEach((item) => item._id === action.payload.idTask && (item.executor = action.payload.idUser))
+    },
+    [addExecutor.rejected]: (state, action) => {
       state.pending = false
       state.error = action.payload.error
     },
