@@ -212,7 +212,7 @@ const AllTasks = () => {
               </NavLink>
             );
           })}
-        </div>}
+        </div>)}
         <div className="col-1">
           <div className="arrow-block">
             <div className={cl.mapBorder}>
