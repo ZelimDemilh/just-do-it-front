@@ -48,6 +48,7 @@ const MyTasks = () => {
                 <div className="text-end">
                   <Badge pill bg="info"></Badge>
                     <NavLink
+                        to="/candidates"
                         className="btn btn-success me-1 p-1"
                         size="sm"
                     >Выбрать исполнителя
