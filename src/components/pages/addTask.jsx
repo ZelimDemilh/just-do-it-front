@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
-import { TextField, Button, Autocomplete } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadCategories } from "../../store/categoriesSlice";
 import { Dropdown } from "react-bootstrap";
