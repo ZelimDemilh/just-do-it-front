@@ -30,7 +30,6 @@ export const updateAvatar = createAsyncThunk(
         return data
       } catch (e) {
         return rejectWithValue(e.error)
-
       }
     }
 )

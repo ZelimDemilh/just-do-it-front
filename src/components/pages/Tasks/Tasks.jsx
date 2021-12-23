@@ -10,9 +10,10 @@ import ReactMapGL, { Marker } from "react-map-gl"
 import { getUsers } from "../../../store/usersSlice"
 import ListGroup from "react-bootstrap/ListGroup"
 import { Helmet } from "react-helmet"
+import {profile} from "../../../store/signInSlice";
 
 const AllTasks = () => {
-  const tasks = useSelector((state) => state.task.task)
+  const tasks = useSelector((state) => state.task.task.filter(task => !task.executor))
   const categories = useSelector((state) => state.categories.categories)
   const preloader = useSelector((state) => state.task.pending)
   const users = useSelector((state) => state.users.users)
@@ -30,6 +31,9 @@ const AllTasks = () => {
   useEffect(() => {
     dispatch(getUsers())
   }, [dispatch])
+  useEffect(() => {
+    dispatch(profile())
+  }, [dispatch])
 
   const handleChange = (e) => {
     setText(e.target.value)
@@ -40,8 +44,6 @@ const AllTasks = () => {
   })
 
   const { id } = useParams()
-
-  console.log(users)
 
   const [viewport, setViewport] = useState({
     latitude: 43.31195,
