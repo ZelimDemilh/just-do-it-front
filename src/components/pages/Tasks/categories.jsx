@@ -148,6 +148,7 @@ const TasksCategories = () => {
           {filteredTasks.map((item) => {
             if (id === item.category) {
               return (
+                <NavLink to={`/tasks/${item._id}`}>
                 <div
                   className="shadow border border-dark rounded-2 p-4 mt-3"
                   id="task"
@@ -185,6 +186,7 @@ const TasksCategories = () => {
                     })}
                   </div>
                 </div>
+                </NavLink>
               );
             }
           })}

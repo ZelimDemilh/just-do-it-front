@@ -160,6 +160,7 @@ const AllTasks = () => {
           </div>
           {filteredTasks.map((item) => {
             return (
+              <NavLink to={`/tasks/${item._id}`}>
                 <div
                     className="shadow border border-dark rounded-2 p-4 mt-3"
                     id="task"
@@ -198,6 +199,7 @@ const AllTasks = () => {
                     })}
                   </div>
                 </div>
+              </NavLink>
             );
           })}
         </div>}
