@@ -113,6 +113,14 @@ const AllTasks = () => {
   //   );
   // }
 
+  const showMarker = (item) => {
+    return (
+      <div>
+        {item.header}
+      </div>
+    )
+  }
+
   return (
     <div>
       <div className="row">
@@ -129,7 +137,7 @@ const AllTasks = () => {
               return (
                     <ListGroup.Item><NavLink
                         className="text-dark my-2 text-decoration-none"
-                        to={`/tasks/${item._id}`}
+                        to={`/tasks/category/${item._id}`}
                     >
                       {item.name}
                     </NavLink></ListGroup.Item>
@@ -207,11 +215,14 @@ const AllTasks = () => {
                 {tasks.map(item => {
                   return (
                       <Marker latitude={Number(item.latitude)} longitude={Number(item.longitude)}>
-                        <img
+                        <NavLink to={`/tasks/${item._id}`}>
+                          <img
                             width={"15px"}
                             src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
                             alt=""
+                            className={cl.marker}
                         />
+                        </NavLink>
                       </Marker>
                   )
                 })}
