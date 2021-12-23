@@ -124,7 +124,7 @@ const TasksCategories = () => {
                     <ListGroup.Item>
                       <NavLink
                         className="text-dark my-2 text-decoration-none"
-                        to={`/tasks/${item._id}`}
+                        to={`/tasks/category/${item._id}`}
                     >
                       {item.name}
                     </NavLink></ListGroup.Item>
@@ -148,6 +148,7 @@ const TasksCategories = () => {
           {filteredTasks.map((item) => {
             if (id === item.category) {
               return (
+                <NavLink to={`/tasks/${item._id}`}>
                 <div
                   className="shadow border border-dark rounded-2 p-4 mt-3"
                   id="task"
@@ -185,6 +186,7 @@ const TasksCategories = () => {
                     })}
                   </div>
                 </div>
+                </NavLink>
               );
             }
           })}
