@@ -37,3 +37,17 @@
 .img {
   margin-bottom: 10px;
 }
+
+.marker {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: #0d1e88;
+}

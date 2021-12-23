@@ -24,7 +24,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="tasks" element={<Tasks />} />
           <Route path="my-tasks" element={<MyTasks />} />
-          <Route path="task/:id" element={<OneTask />} />
+          <Route path="tasks/:id" element={<OneTask/>} />
           <Route
             path="addTask"
             element={
@@ -33,7 +33,7 @@ function App() {
               </Auth>
             }
           />
-          <Route path="tasks/:id" element={<TasksCategories />} />
+          <Route path="tasks/category/:id" element={<TasksCategories />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
