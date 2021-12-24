@@ -4,7 +4,7 @@ import cl from "../HomePage.module.css";
 
 const FirstSlide = () => {
   return (
-    <div className="w-75 m-auto d-flex align-items-center justify-content-center justify-content-md-between py-3">
+    <div className="w-75 mb-5 m-auto d-flex align-items-center justify-content-center justify-content-md-between py-3">
       <img src={img1} alt="" className={`${cl.img}`} />
     </div>
   );

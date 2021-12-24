@@ -51,7 +51,17 @@ const OneTask = () => {
                 }
               })}
             </div>
-            <div className="col-2">Дата</div>
+            <div className="col-2">
+              {task.map(item => {
+                if (item._id === id) {
+                  return (
+                      <h2>
+                        {item.price}₽
+                      </h2>
+                  )
+                }
+              })}
+            </div>
           </div>
           <hr />
           <div>
@@ -89,8 +99,7 @@ const OneTask = () => {
             {task.map((taskItem, index) => {
               if (
                 taskItem.category === singleTaskCategory[0].category &&
-                taskItem._id !== singleTaskCategory[0]._id &&
-                index < 6
+                taskItem._id !== singleTaskCategory[0]._id
               ) {
                 return (
                   <div className="row">
