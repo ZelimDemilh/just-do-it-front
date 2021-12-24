@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactMapGL, { Marker, GeolocateControl } from "react-map-gl";
-import { TextField, Button, Autocomplete } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadCategories } from "../../store/categoriesSlice";
 import { Dropdown } from "react-bootstrap";
@@ -24,8 +24,8 @@ const AddTask = () => {
   });
 
   useEffect(() => {
-      dispatch(uploadCategories())
-  },[dispatch])
+    dispatch(uploadCategories());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(profile());
@@ -36,7 +36,7 @@ const AddTask = () => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [marker, setMarker] = useState("");
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
 
   const handleHeading = (e) => {
     setHeading(e.target.value);
@@ -55,41 +55,49 @@ const AddTask = () => {
     console.log(category);
   };
 
-    const handleCoors = (e) => {
-        let lngLat = e.lngLat;
-        setMarker(
-            <Marker longitude={lngLat[0]} latitude={lngLat[1]}>
-                <img
-                    className="marker"
-                    width={"13px"}
-                    src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
-                    alt=""
-                />
-            </Marker>
-        );
-    };
+  const handleCoors = (e) => {
+    let lngLat = e.lngLat;
+    setMarker(
+      <Marker longitude={lngLat[0]} latitude={lngLat[1]}>
+        <img
+          className="marker"
+          width={"13px"}
+          src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
+          alt=""
+        />
+      </Marker>
+    );
+  };
 
   const handleSendToServer = () => {
-      if (heading === "" || description === "" || price === "" || category === "" || marker === "") {
-          setMessage("Пожалуйста заполните все поля и оставьте ваше местоположение на карте")
-      } else {
-    dispatch(
-      addTaskForm({
-        heading: heading,
-        description: description,
-        price: price,
-        category: category,
-        longitude: marker.props.longitude,
-        latitude: marker.props.latitude,
-      })
-    )
-          setHeading("")
-          setDescription("")
-          setPrice("")
-          setCategory("")
-          setMarker("")
-          setMessage("Задание добавленно")
-      };
+    if (
+      heading === "" ||
+      description === "" ||
+      price === "" ||
+      category === "" ||
+      marker === ""
+    ) {
+      setMessage(
+        "Пожалуйста заполните все поля и оставьте ваше местоположение на карте"
+      );
+    } else {
+      dispatch(
+        addTaskForm({
+          heading: heading,
+          description: description,
+          price: price,
+          category: category,
+          longitude: marker.props.longitude,
+          latitude: marker.props.latitude,
+        })
+      );
+      setHeading("");
+      setDescription("");
+      setPrice("");
+      setCategory("");
+      setMarker("");
+      setMessage("Задание добавленно");
+    }
   };
 
   return (
@@ -172,9 +180,9 @@ const AddTask = () => {
                   setViewport(viewport);
                 }}
               >
-                  <div className="m-2">
-                      <GeolocateControl>...</GeolocateControl>
-                  </div>
+                <div className="m-2">
+                  <GeolocateControl>...</GeolocateControl>
+                </div>
                 {marker}
               </ReactMapGL>
             </div>
@@ -182,11 +190,15 @@ const AddTask = () => {
               <Button variant="contained" onClick={handleSendToServer}>
                 Добавить
               </Button>
-                <h5
-
-                    className={message === "Задание добавленно" ? "text-success mt-2" : "text-danger mt-2"}>
-                    {message}
-                </h5>
+              <h5
+                className={
+                  message === "Задание добавленно"
+                    ? "text-success mt-2"
+                    : "text-danger mt-2"
+                }
+              >
+                {message}
+              </h5>
             </div>
           </div>
         ) : (
