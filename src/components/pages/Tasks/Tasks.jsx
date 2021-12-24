@@ -13,7 +13,7 @@ import { Helmet } from "react-helmet"
 import {profile} from "../../../store/signInSlice";
 
 const AllTasks = () => {
-  const tasks = useSelector((state) => state.task.task.filter(task => !task.executor))
+  const tasks = useSelector((state) => state.task.task.filter(task => !task.executor).reverse())
   const categories = useSelector((state) => state.categories.categories)
   const preloader = useSelector((state) => state.task.pending)
   const users = useSelector((state) => state.users.users)

@@ -22,12 +22,10 @@ const OneTask = () => {
 
   const singleTaskCategory = task.filter((item) => {
     if (id === item._id) {
-      console.log(userDate)
-      console.log(item)
       return item;
     }
   });
-  console.log(singleTaskCategory.candidates)
+  console.log(singleTaskCategory[0].candidates)
   const handleResponse = () => {
     dispatch(userResponse(id))
   }
@@ -65,8 +63,15 @@ const OneTask = () => {
           </div>
           <div className="row mb-3 mt-5 text-center">
             <div className="col">
-              {singleTaskCategory[0].candidates.indexOf(userDate._id)?
-                  <span onClick={handleResponse} className="btn btn-success">Откликнуться</span>:<p> Вы уже сделали отклик</p>}
+              {singleTaskCategory.map((item)=> {
+                if (item.candidates.indexOf(userDate._id) === -1){
+                  return <span onClick={handleResponse} className="btn btn-success">Откликнуться</span>
+                }else {
+                  return <p> Вы уже сделали отклик</p>
+                }
+              })}
+              {/*{singleTaskCategory[0].candidates.indexOf(userDate._id)?*/}
+              {/*    <span onClick={handleResponse} className="btn btn-success">Откликнуться</span>:<p> Вы уже сделали отклик</p>}*/}
             </div>
             <div className="col">
               <NavLink to={`/tasks/`}>

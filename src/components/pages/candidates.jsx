@@ -23,7 +23,9 @@ const Candidates = () => {
 
     const task = useSelector(state => state.task.task.filter((task) => task._id === id))
 
-    const users = useSelector(state => state.users.users.filter(user => !task[0].candidates.indexOf(user._id)))
+    const users = useSelector(state => state.users.users.filter(user => task[0].executor === null? task[0].candidates.indexOf(user._id) !== -1 : task[0].executor === user._id))
+
+    const executor = useSelector(state => state.users.users.filter(user => task[0].executor === user._id))
 
     const handleExecutor = (idUser) => {
         const formData = {
@@ -31,6 +33,10 @@ const Candidates = () => {
             id
         }
         dispatch(addExecutor(formData))
+    }
+
+    if(users.length === 0){
+        return <div className="container"> <p> Пока никто не откликнулся </p></div>
     }
 
     return (
@@ -41,22 +47,21 @@ const Candidates = () => {
                             {`#${index + 1} ${user.firstName} ${user.lastName}`}
                         </Card.Header>
                         <Card.Body>
-                            <img src={user.avatar} alt=""/>
                             <Card.Text>Рейтинг: {user.rating}</Card.Text>
                             <div className="text-end">
                                 <Badge pill bg="info"></Badge>
-                                {task[0].executor === null &&
+                                {task[0].executor === null?
                                 <Button
                                     className="btn btn-success me-1 p-1"
                                     size="sm"
                                     onClick ={()=> handleExecutor(user._id)}
                                 >Выбрать
-                                </Button>}
+                                </Button>:
                                 <Button
                                     className="btn btn-warning me-1 p-1"
                                     size="sm"
                                 >Завершить
-                                </Button>
+                                </Button>}
                             </div>
                         </Card.Body>
                     </Card>
