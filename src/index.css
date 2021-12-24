@@ -5,3 +5,9 @@ footer svg {
   color: red;
 }
 
+.marker {
+  position: relative;
+  bottom: 25px;
+  right: 7px;
+}
+

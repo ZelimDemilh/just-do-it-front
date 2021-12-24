@@ -44,13 +44,16 @@ const Profile = () => {
               alt="..."
             />
             <input
+                className="input-group-sm mt-2"
               type="file"
               id="formFile"
               accept="image/*"
               name="avatar"
               onChange={(e) => handleSetAvatar(e.target.files[0])}
             />
-            <button onClick={handleUpdateAvatar}>Next</button>
+            <button onClick={handleUpdateAvatar} className="btn btn-success mt-2">
+              Изменить
+            </button>
           </div>
           <div className="col-md-8">
             <div className="card-body">
