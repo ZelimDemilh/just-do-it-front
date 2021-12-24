@@ -6,25 +6,22 @@ export const updateAvatar = createAsyncThunk(
     async function (newAvatar, {rejectWithValue}) {
       try {
 
-        const formData = new FormData()
+        const formData = new FormData();
 
         formData.append("avatar", newAvatar)
-
-        console.log(formData)
 
         const token = localStorage.getItem("token")
 
         const decodeToken = await jwtDecode(token)
 
-        const res = await fetch(`http://localhost:6557//update/${decodeToken.id}`,{
-          method: "PATCH",
-          headers: {
-            "Content-type": "application/json",
-          },
+        console.log(formData)
+
+        const res = await fetch(`http://localhost:6557/users/update/${decodeToken.id}`,{
+          method: "POST",
           body: formData
         })
 
-        const data = res.json()
+        const data = await res.json()
 
         if(data.error){
           throw new Error(data.error)
@@ -33,7 +30,6 @@ export const updateAvatar = createAsyncThunk(
         return data
       } catch (e) {
         return rejectWithValue(e.error)
-
       }
     }
 )
@@ -131,6 +127,18 @@ const signInSlice = createSlice({
       state.userDate = action.payload
     },
     [profile.rejected]: (state, action) => {
+      state.pending = false
+      state.error = action.payload
+    },
+
+    [updateAvatar.pending]: (state) => {
+      state.pending = true
+    },
+    [updateAvatar.fulfilled]: (state, action) => {
+      state.pending = false
+      state.userDate.avatar = action.payload.path
+    },
+    [updateAvatar.rejected]: (state, action) => {
       state.pending = false
       state.error = action.payload
     },

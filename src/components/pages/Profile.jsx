@@ -122,6 +122,33 @@ const Profile = () => {
                   </tbody>
                 </table>
               </div>
+                  ) : (
+                    <Link
+                      to="/my-tasks"
+                      className="btn btn-danger w-100 p-1 my-2"
+                    >
+                      Мои объявления
+                    </Link>
+                  )}
+                </tbody>
+              </table>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th className="w-50">Контакты</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Номер телефона:</td>
+                    <td>{userDate.phone}</td>
+                  </tr>
+                  <tr>
+                    <td>Электронный адрес:</td>
+                    <td>{userDate.email}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

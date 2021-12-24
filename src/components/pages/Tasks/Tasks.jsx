@@ -10,9 +10,10 @@ import ReactMapGL, { Marker } from "react-map-gl"
 import { getUsers } from "../../../store/usersSlice"
 import ListGroup from "react-bootstrap/ListGroup"
 import { Helmet } from "react-helmet"
+import {profile} from "../../../store/signInSlice";
 
 const AllTasks = () => {
-  const tasks = useSelector((state) => state.task.task)
+  const tasks = useSelector((state) => state.task.task.filter(task => !task.executor).reverse())
   const categories = useSelector((state) => state.categories.categories)
   const preloader = useSelector((state) => state.task.pending)
   const users = useSelector((state) => state.users.users)
@@ -30,6 +31,9 @@ const AllTasks = () => {
   useEffect(() => {
     dispatch(getUsers())
   }, [dispatch])
+  useEffect(() => {
+    dispatch(profile())
+  }, [dispatch])
 
   const handleChange = (e) => {
     setText(e.target.value)
@@ -40,8 +44,6 @@ const AllTasks = () => {
   })
 
   const { id } = useParams()
-
-  console.log(users)
 
   const [viewport, setViewport] = useState({
     latitude: 43.31195,
@@ -114,6 +116,14 @@ const AllTasks = () => {
   //   );
   // }
 
+  const showMarker = (item) => {
+    return (
+      <div>
+        {item.header}
+      </div>
+    )
+  }
+
   return (
     <div>
       <Helmet>
@@ -132,12 +142,11 @@ const AllTasks = () => {
                   Все категории
                 </NavLink>
               </ListGroup.Item>
-              {categories.map((item) => {
-                return (
-                  <ListGroup.Item>
-                    <NavLink
-                      className="text-dark my-2 text-decoration-none"
-                      to={`/tasks/${item._id}`}
+            {categories.map((item) => {
+              return (
+                    <ListGroup.Item><NavLink
+                        className="text-dark my-2 text-decoration-none"
+                        to={`/tasks/category/${item._id}`}
                     >
                       {item.name}
                     </NavLink>
@@ -160,14 +169,14 @@ const AllTasks = () => {
                 placeholder="Напишите с чем вам нужна помощь"
                 aria-label="Напишите с чем вам нужна помощь"
                 aria-describedby="basic-addon2"
-              />
-            </div>
-            {filteredTasks.map((item) => {
-              return (
+            />
+          </div>
+          {filteredTasks.map((item) => {
+            return (
+              <NavLink to={`/tasks/${item._id}`}>
                 <div
-                  className="shadow border border-dark rounded-2 p-4 mt-3"
-                  id="task"
-                >
+                    className="shadow border border-dark rounded-2 p-4 mt-3"
+                    id="task">
                   <div className="row">
                     <div className="img col-2">
                       <img
@@ -202,10 +211,10 @@ const AllTasks = () => {
                     })}
                   </div>
                 </div>
-              )
-            })}
-          </div>
-        )}
+              </NavLink>
+            );
+          })}
+        </div>)}
         <div className="col-1">
           <div className="arrow-block">
             <div className={cl.mapBorder}>
@@ -219,16 +228,16 @@ const AllTasks = () => {
               >
                 {tasks.map((item) => {
                   return (
-                    <Marker
-                      latitude={Number(item.latitude)}
-                      longitude={Number(item.longitude)}
-                    >
-                      <img
-                        width={"15px"}
-                        src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
-                        alt=""
-                      />
-                    </Marker>
+                      <Marker latitude={Number(item.latitude)} longitude={Number(item.longitude)}>
+                        <NavLink to={`/tasks/${item._id}`}>
+                          <img
+                            width={"15px"}
+                            src="https://pngicon.ru/file/uploads/ikonka-geolokatsii-85x128.png"
+                            alt=""
+                            className={cl.marker}
+                        />
+                        </NavLink>
+                      </Marker>
                   )
                 })}
               </ReactMapGL>

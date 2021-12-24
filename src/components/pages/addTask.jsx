@@ -7,6 +7,7 @@ import { Dropdown } from "react-bootstrap"
 import { addTaskForm } from "../../store/taskSlice"
 import { Link } from "react-router-dom"
 import { Helmet } from "react-helmet"
+import {profile} from "../../store/signInSlice";
 
 const AddTask = () => {
   const dispatch = useDispatch()
@@ -22,9 +23,9 @@ const AddTask = () => {
     zoom: 10,
   })
 
-  useEffect(() => {
-    dispatch(uploadCategories())
-  }, [dispatch])
+    useEffect(() => {
+        dispatch(profile())
+    }, [dispatch])
 
   const [heading, setHeading] = useState("")
   const [description, setDescription] = useState("")

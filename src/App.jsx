@@ -12,6 +12,7 @@ import OneTask from "./components/pages/Tasks/OneTask"
 import Layout from "./components/Layout"
 import Auth from "./hoc/Auth"
 import MyTasks from "./components/pages/myTasks"
+import Candidates from "./components/pages/candidates";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="tasks" element={<Tasks />} />
           <Route path="my-tasks" element={<MyTasks />} />
-          <Route path="task/:id" element={<OneTask />} />
+          <Route path="tasks/:id" element={<OneTask/>} />
+          <Route path=":id/candidates" element={<Candidates/>} />
           <Route
             path="addTask"
             element={
@@ -33,7 +35,7 @@ function App() {
               </Auth>
             }
           />
-          <Route path="tasks/:id" element={<TasksCategories />} />
+          <Route path="tasks/category/:id" element={<TasksCategories />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
