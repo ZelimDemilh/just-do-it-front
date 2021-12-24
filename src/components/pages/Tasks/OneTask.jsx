@@ -10,6 +10,8 @@ const OneTask = () => {
   const categories = useSelector((state) => state.categories.categories);
   const userDate = useSelector((state) => state.signIn.userDate);
 
+  const token = localStorage.getItem("token")
+
   useEffect(() => {
     dispatch(uploadCategories());
   }, [dispatch]);
@@ -73,7 +75,7 @@ const OneTask = () => {
           </div>
           <div className="row mb-3 mt-5 text-center">
             <div className="col">
-              {singleTaskCategory.map((item)=> {
+              {token && singleTaskCategory.map((item)=> {
                 if (item.candidates.indexOf(userDate._id) === -1){
                   return <span onClick={handleResponse} className="btn btn-success">Откликнуться</span>
                 }else {
