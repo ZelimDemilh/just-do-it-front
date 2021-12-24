@@ -6,7 +6,7 @@ import { uploadTasks } from "../../../store/taskSlice"
 import { uploadCategories } from "../../../store/categoriesSlice"
 import { useParams } from "react-router-dom"
 import { NavLink } from "react-router-dom"
-import ReactMapGL, { Marker } from "react-map-gl"
+import ReactMapGL, {GeolocateControl, Marker} from "react-map-gl"
 import { getUsers } from "../../../store/usersSlice"
 import ListGroup from "react-bootstrap/ListGroup"
 import { Helmet } from "react-helmet"
@@ -157,7 +157,7 @@ const AllTasks = () => {
           </div>
         </div>
         {preloader ? (
-          <div className={`col-md-6 ${cl.loader}`}></div>
+          <div className={`col-md-6 ${cl.loader}`}/>
         ) : (
           <div className="col-md-6">
             <div className="input-group mb-3">
@@ -240,6 +240,9 @@ const AllTasks = () => {
                       </Marker>
                   )
                 })}
+                <div className="m-1">
+                  <GeolocateControl>...</GeolocateControl>
+                </div>
               </ReactMapGL>
             </div>
           </div>
